@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: usuariosVotaciones
+
+  datasource:
+    url: jdbc:postgresql://186.28.174.239:2345/votaciones_usuarios
+    username: votes_users
+    password: wfwz47R3zuks7kLxKFVo
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      formatted_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ${JWT_SECRET}
+

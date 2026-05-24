@@ -1,0 +1,50 @@
+services:
+  api-gateway:
+    build: 
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./ApiGateway/.env
+    environment:
+      - HOST_USERS=usuarios-votaciones
+      - PORT_USERS=8080
+      - HOST_VOTACIONES=votaciones
+      - PORT_VOTACIONES=8080
+    networks:
+      - main-network
+    depends_on:
+      - usuarios-votaciones
+      - votaciones
+
+
+# =============================== USUARIOS VOTACIONES ===============================
+  usuarios-votaciones:
+    build: 
+      context: ./usuariosVotaciones
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    env_file:
+      - ./usuariosVotaciones/.env
+    networks:
+      - main-network
+
+# =============================== VOTACIONES ===============================
+  votaciones:
+    build: 
+      context: ./votaciones
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    env_file:
+      - ./votaciones/.env
+    networks:
+      - main-network
+    depends_on:
+      - usuarios-votaciones
+
+networks:
+  main-network:
+    driver: bridge
